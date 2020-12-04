@@ -8,17 +8,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({
+  audioRef,
+  activeLibraryHandler,
   currentSong,
+  setCurrentSong,
   isPlaying,
   setIsPlaying,
-  audioRef,
   songInfo,
   setSongInfo,
   songs,
-  setSongs,
-  setCurrentSong,
-  activeLibraryHandler,
 }) => {
+  //Handlers
   const playSongHandler = () => {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
@@ -26,12 +26,6 @@ const Player = ({
     } else {
       audioRef.current.play();
     }
-  };
-
-  const getTime = (time) => {
-    return (
-      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
-    );
   };
 
   const dragHandler = (e) => {
@@ -56,12 +50,22 @@ const Player = ({
 
     if (isPlaying) audioRef.current.play();
   };
+
+  // Time formatting
+  const getTime = (time) => {
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
+  };
+
   //Add the styles
   const animationPercentage = (songInfo.currentTime / songInfo.duration) * 100;
   const sliderPercentage = { transform: `translateX(${animationPercentage}%)` };
+
   const gradientBackground = {
     background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})`,
   };
+
   return (
     <div className="player">
       <div className="time-control">

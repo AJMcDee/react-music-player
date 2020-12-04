@@ -12,17 +12,18 @@ import data from "./data";
 function App() {
   //Ref
   const audioRef = useRef(null);
+
   //State
 
+  const [songs, setSongs] = useState(data());
+  const [currentSong, setCurrentSong] = useState(songs[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [libraryStatus, setLibraryStatus] = useState(false);
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
     animationPercentage: 0,
   });
-  const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(songs[0]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [libraryStatus, setLibraryStatus] = useState(false);
 
   //Handlers
 
@@ -35,6 +36,7 @@ function App() {
       duration,
     });
   };
+
   const activeLibraryHandler = (nextPrev) => {
     const newSongs = songs.map((songInLoop) => {
       if (songInLoop.id === nextPrev.id) {
@@ -46,6 +48,7 @@ function App() {
 
     setSongs(newSongs);
   };
+
   const songEndHandler = async () => {
     let songIndex = songs.findIndex(
       (songInLoop) => songInLoop.id === currentSong.id
@@ -56,12 +59,15 @@ function App() {
     if (isPlaying) audioRef.current.play();
   };
 
+  //Render
+
   return (
     <div className={`App ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
         audioRef={audioRef}
+        activeLibraryHandler={activeLibraryHandler}
         currentSong={currentSong}
         setCurrentSong={setCurrentSong}
         isPlaying={isPlaying}
@@ -69,8 +75,6 @@ function App() {
         songInfo={songInfo}
         setSongInfo={setSongInfo}
         songs={songs}
-        setSongs={setSongs}
-        activeLibraryHandler={activeLibraryHandler}
       />
       <audio
         ref={audioRef}
@@ -80,13 +84,12 @@ function App() {
         onEnded={songEndHandler}
       ></audio>
       <Library
-        setSongs={setSongs}
         audioRef={audioRef}
-        currentSong={currentSong}
-        songs={songs}
-        setCurrentSong={setCurrentSong}
         isPlaying={isPlaying}
         libraryStatus={libraryStatus}
+        songs={songs}
+        setSongs={setSongs}
+        setCurrentSong={setCurrentSong}
       />
     </div>
   );
