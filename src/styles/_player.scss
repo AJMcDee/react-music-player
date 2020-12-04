@@ -1,0 +1,81 @@
+// Called a partial
+// Import into main App.scss
+.player {
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.time-control {
+  width: 50%;
+
+  display: flex;
+  align-items: center;
+
+  .track {
+    position: relative;
+    background: lightblue;
+    width: 100%;
+    height: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    input {
+      width: 100%;
+      // padding: 1rem 0rem;
+      -webkit-appearance: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    input:focus {
+      outline: none;
+    }
+    input::-webkit-slider-thumb {
+      appearance: none;
+      height: 16px;
+      width: 16px;
+    }
+    input::-moz-range-thumb {
+      appearance: none;
+      background: transparent;
+      border: none;
+    }
+
+    .animate-track {
+      background-color: rgb(202, 202, 202);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(0%);
+      pointer-events: none;
+    }
+  }
+
+  p {
+    padding: 1rem;
+  }
+}
+
+.play-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  width: 30%;
+  svg {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .time-control {
+    width: 90%;
+  }
+  .play-control {
+    width: 60%;
+  }
+}
