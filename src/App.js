@@ -1,6 +1,9 @@
 import React, { useState, useRef } from "react";
+
 // Import styles
 import "./styles/app.scss";
+import useDarkMode from "use-dark-mode";
+
 //Import components
 import Player from "./components/Player";
 import Song from "./components/Song";
@@ -59,11 +62,23 @@ function App() {
     if (isPlaying) audioRef.current.play();
   };
 
+  let darkMode = useDarkMode(false);
+
+  function changeTheme() {
+    darkMode.toggle();
+  }
+
   //Render
 
   return (
     <div className={`App ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
+      <input
+        type="checkbox"
+        checked={useDarkMode.value}
+        element={document.library}
+        onChange={changeTheme}
+      />
       <Song currentSong={currentSong} />
       <Player
         audioRef={audioRef}
