@@ -1,9 +1,26 @@
 nav {
+  h1 {
+    font-family: "Dancing Script", "Lato", sans-serif;
+    font-size: 3rem;
+    @media screen and (max-width: 1078px) {
+      font-size: 2.5rem;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 1.5rem;
+    }
+  }
+
   min-height: 10vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  #right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   button {
+    margin: 1rem;
     background: transparent;
     border: 2px solid rgb(65, 65, 65);
     cursor: pointer;
@@ -14,12 +31,56 @@ nav {
       color: white;
     }
   }
+  .toggle input[type="checkbox"] {
+    display: none;
+  }
+
+  .toggle label {
+    background-color: #fff;
+    border: 2px solid #555;
+    border-radius: 25px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: all ease-in-out 0.3s;
+    width: 50px;
+    height: 25px;
+  }
+
+  .toggle label::after {
+    background-color: #fff;
+    border-radius: 50%;
+    content: " ";
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    transition: all ease-in-out 0.5s;
+    width: 20px;
+    height: 19px;
+  }
+
+  #iconcontainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 90%;
+    width: 90%;
+    padding: 2px;
+  }
+  #sunIcon {
+    color: orange;
+  }
+
+  #moonIcon {
+    color: black;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  nav {
-    button {
-      z-index: 10;
-    }
+  button {
+    z-index: 10;
   }
 }
